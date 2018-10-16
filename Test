@@ -1,0 +1,118 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package javaapplication2;
+
+/**
+ *
+ * @author ANKIT
+ */
+import java.util.*;
+public class Ai implements Runnable{
+    
+       public static void main(String[] args) {
+        
+       new Thread(null, new Ai(), "Check2", 1 << 28).start(); 
+    
+    }
+
+        public void run() {
+           
+              Scanner in=new Scanner(System.in);   
+                int n=3;
+      
+      int a[][]=new int[n][n];
+      for(int i=0;i<n;i++)for(int j=0;j<n;j++)a[i][j]=in.nextInt();
+      
+      int bl_x=0;
+      int bl_y=0;
+      
+      for(int i=0;i<n;i++)for(int j=0;j<n;j++)if(a[i][j]==-1){
+          bl_x=i;
+          bl_y=j;
+      }
+      
+      int b[][]=new int[][]{{1,2,3},{8,-1,4},{7,6,5}};
+      
+      Queue <pair> q=new LinkedList();
+        
+      q.add(new pair(a,bl_x,bl_y));
+      
+      while(!q.isEmpty()){
+          pair tmp=q.poll();
+    
+         
+        
+        if(ans)break ;
+        if(isSame(tmp.a,b)){
+            break;
+        }
+        
+        for(int k=0;k<x.length;k++){
+            int nx=tmp.x+x[k];
+            int ny=tmp.y+y[k];
+         //   System.out.println(nx+" "+ny+" "+tmp.x+" "+tmp.y+" "+isValid(nx, ny, tmp.a.length,tmp.a[0].length));
+               
+            if(isValid(nx, ny, tmp.a.length,tmp.a[0].length)){
+        //         System.out.println(nx+" "+ny+" "+tmp.x+" "+tmp.y);
+            
+                int tp=tmp.a[tmp.x][tmp.y];
+                tmp.a[tmp.x][tmp.y]=tmp.a[nx][ny];
+                tmp.a[nx][ny]=tp;
+                if(!set.contains(conv(tmp.a))){
+                q.add(new pair(tmp.a,nx,ny));
+                set.add(conv(tmp.a));
+                }
+                 tp=tmp.a[tmp.x][tmp.y];
+                tmp.a[tmp.x][tmp.y]=tmp.a[nx][ny];
+                tmp.a[nx][ny]=tp;
+                  
+            }
+        }
+          
+      }
+           
+    }
+        
+    class pair{
+        int a[][],x,y;
+        pair(int b[][],int x,int y){
+            a=new int[b.length][b[0].length];
+            for(int i=0;i<b.length;i++)
+                for(int j=0;j<a[i].length;j++)
+                    a[i][j]=b[i][j];
+            this.x=x;
+            this.y=y;
+        }
+    }    
+    static int x[]=new int[]{1,-1,0,0};
+    static int y[]=new int[]{0,0,1,-1};
+    static HashSet <String> set=new HashSet();
+    static boolean ans=false;
+   
+    static String conv(int a[][]){
+        String ans="";
+        
+        for(int i=0;i<a.length;i++)for(int j=0;j<a[0].length;j++)ans+=a[i][j]+" ";
+        
+        return ans;
+    }
+    static boolean isValid(int i,int j,int n,int m){
+        if(i<0||j<0||i>=n||j>=m)return false;
+        return true;
+    }
+    static boolean isSame(int a[][],int b[][]){
+        for(int i=0;i<a.length;i++)for(int j=0;j<a[0].length;j++)if(a[i][j]!=b[i][j])return false;
+        for(int i=0;i<a.length;i++){
+            for(int j=0;j<a[0].length;j++){
+                System.out.print(a[i][j]+" ");
+            }
+            System.out.println();
+        }
+        ans=true;
+        return true;
+    }
+    
+}
